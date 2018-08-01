@@ -1,8 +1,17 @@
 {
-  "name": "seo-checker",
+  "name": "@jeremysu0131/seo-checker",
   "version": "0.0.1",
+  "description": "This is used to check your SEO file.",
   "main": "index.js",
   "author": "Jeremy Su",
+  "homepage": "https://github.com/jeremysu0131/seo-checker",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jeremysu0131/seo-checker"
+  },
+  "bugs": {
+    "url": "https://github.com/jeremysu0131/seo-checker/issues"
+  },
   "license": "MIT",
   "devDependencies": {
     "eslint": "^4.19.1",
