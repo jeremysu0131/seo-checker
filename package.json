@@ -1,0 +1,13 @@
+{
+  "name": "seo-checker",
+  "version": "0.0.1",
+  "main": "index.js",
+  "author": "Jeremy Su",
+  "license": "MIT",
+  "devDependencies": {
+    "eslint": "^4.19.1",
+    "eslint-config-airbnb-base": "^13.0.0",
+    "eslint-plugin-html": "^4.0.5",
+    "eslint-plugin-import": "^2.13.0"
+  }
+}
