@@ -3,6 +3,9 @@
   "version": "0.0.1",
   "description": "This is used to check your SEO file.",
   "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
   "author": "Jeremy Su",
   "homepage": "https://github.com/jeremysu0131/seo-checker",
   "repository": {
