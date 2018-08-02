@@ -4,8 +4,10 @@
   "description": "This is used to check your SEO file.",
   "main": "index.js",
   "scripts": {
-    "test": "mocha"
+    "test": "mocha",
+    "lint": "yarn run eslint lib/** test/**"
   },
+  "pre-commit": ["lint"],
   "author": "Jeremy Su",
   "homepage": "https://github.com/jeremysu0131/seo-checker",
   "repository": {
@@ -22,6 +24,10 @@
     "eslint-config-airbnb-base": "^13.0.0",
     "eslint-plugin-html": "^4.0.5",
     "eslint-plugin-import": "^2.13.0",
-    "mocha": "^5.2.0"
+    "mocha": "^5.2.0",
+    "pre-commit": "^1.2.2"
+  },
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.2"
   }
 }
