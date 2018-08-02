@@ -25,7 +25,7 @@ describe('Detect Image Arrtibute', () => {
   });
 });
 
-describe('Detect link Arrtibute', () => {
+describe('Detect Link Arrtibute', () => {
   it('Should return 2', () => {
     expect(checker.detectLink(
       `
@@ -43,5 +43,46 @@ describe('Detect link Arrtibute', () => {
       <a href="http://google.com" rel="nofollow">Google</a>
       `,
     )).to.equal('There are 0 <a> tag without rel attribute.');
+  });
+});
+
+describe('Detect Header Arrtibute', () => {
+  it('Should return without everything', () => {
+    expect(checker.detectHead(
+      `
+      <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+      </head>
+      `,
+    )).to.equal('This HTML without <title> <meta name="descriptions" /> <meta name="keywords" /> tag.');
+  });
+  it('Should return without title tag', () => {
+    expect(checker.detectHead(
+      `
+      <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="I want to be hired!">
+        <meta name="keywords" content="HTML,CSS,XML,JavaScript">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+      </head>
+      `,
+    )).to.equal('This HTML without <title> tag.');
+  });
+  it('Should return header is ok', () => {
+    expect(checker.detectHead(
+      `
+      <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="I want to be hired!">
+        <meta name="keywords" content="HTML,CSS,XML,JavaScript">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Jeremy test</title>
+      </head>
+      `,
+    )).to.equal('Header setup ok.');
   });
 });
