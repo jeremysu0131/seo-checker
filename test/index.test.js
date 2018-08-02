@@ -13,7 +13,7 @@ describe('Detect Image Arrtibute', () => {
       <img src="http://via.placeholder.com/150x150" alt="square">
       <img src="http://via.placeholder.com/200x100" alt="rectangle">
       `,
-    )).to.be.equal('There are 2 <img> tag without alt attribute.');
+    )).to.equal('There are 2 <img> tag without alt attribute.');
   });
   it('Should return 0', () => {
     expect(checker.detectImage(
@@ -21,6 +21,6 @@ describe('Detect Image Arrtibute', () => {
       <img src="http://via.placeholder.com/150x150" alt="square">
       <img src="http://via.placeholder.com/200x100" alt="rectangle">
       `,
-    )).to.be.equal('There are 0 <img> tag without alt attribute.');
+    )).to.equal('There are 0 <img> tag without alt attribute.');
   });
 });
