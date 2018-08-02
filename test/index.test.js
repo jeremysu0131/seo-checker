@@ -24,3 +24,24 @@ describe('Detect Image Arrtibute', () => {
     )).to.equal('There are 0 <img> tag without alt attribute.');
   });
 });
+
+describe('Detect link Arrtibute', () => {
+  it('Should return 2', () => {
+    expect(checker.detectLink(
+      `
+      <a href="http://google.com">Google</a>
+      <a href="http://google.com">Google</a>
+      <a href="http://google.com" rel="nofollow">Google</a>
+      `,
+    )).to.equal('There are 2 <a> tag without rel attribute.');
+  });
+  it('Should return 0', () => {
+    expect(checker.detectLink(
+      `
+      <a href="http://google.com" rel="author">Google</a>
+      <a href="http://google.com" rel="bookmark">Google</a>
+      <a href="http://google.com" rel="nofollow">Google</a>
+      `,
+    )).to.equal('There are 0 <a> tag without rel attribute.');
+  });
+});
