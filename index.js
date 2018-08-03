@@ -3,5 +3,5 @@
 const detect = require('./lib/index');
 
 const data = detect.readFile('./test/testfiles/test2.html');
-console.log(detect.detectImage(data));
-console.log(detect.detectHead(data));
+// console.log(detect.detectImage(data));
+console.log(detect.detectStrong(data, 15));

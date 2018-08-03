@@ -86,3 +86,43 @@ describe('Detect Header Arrtibute', () => {
     )).to.equal('Header setup ok.');
   });
 });
+
+describe('Detect The Number of Strong Tags', () => {
+  const limit = 15;
+  it('Should return less', () => {
+    expect(checker.detectStrong(
+      `
+      <strong>Nihil, velit!</strong>
+      <strong>Cumque, ab.</strong>
+      <strong>Totam, aspernatur!</strong>
+      <strong>Nesciunt, illum?</strong>
+      <strong>Possimus, accusamus!</strong>
+      <strong>Rem, maxime.</strong>
+      <strong>Quia, a.</strong>
+      <strong>Eos, perspiciatis.</strong>
+      `, limit,
+    )).to.equal(`<strong> tag isn't more than ${limit}. Total: 8.`);
+  });
+  it('Should return more', () => {
+    expect(checker.detectStrong(
+      `
+      <strong>Lorem, ipsum.</strong>
+      <strong>Quisquam, accusamus?</strong>
+      <strong>Quae, laboriosam!</strong>
+      <strong>Quia, tempore?</strong>
+      <strong>Laborum, optio.</strong>
+      <strong>Labore, quasi.</strong>
+      <strong>Totam, sapiente?</strong>
+      <strong>Quam, sapiente.</strong>
+      <strong>Similique, ullam.</strong>
+      <strong>Tempore, laborum.</strong>
+      <strong>Suscipit, ipsam?</strong>
+      <strong>Ex, fuga!</strong>
+      <strong>Perferendis, eos.</strong>
+      <strong>Nobis, accusamus?</strong>
+      <strong>Quidem, suscipit!</strong>
+      <strong>Omnis, ratione!</strong>
+      `, limit,
+    )).to.equal(`<strong> tag is more than ${limit}. Total: 16.`);
+  });
+});
