@@ -126,3 +126,22 @@ describe('Detect The Number of Strong Tags', () => {
     )).to.equal(`<strong> tag is more than ${limit}. Total: 16.`);
   });
 });
+
+describe('Detect The Number of Strong Tags', () => {
+  const limit = 15;
+  it('Should return less', () => {
+    expect(checker.detectH1(
+      `
+      <h1>Helllo World!</h1>
+      `, limit,
+    )).to.equal('<h1> tag isn\'t more than one.');
+  });
+  it('Should return more', () => {
+    expect(checker.detectH1(
+      `
+      <h1>Helllo World!</h1>
+      <h1>Helllo World!</h1>
+      `, limit,
+    )).to.equal('<h1> tag is more than one.');
+  });
+});
