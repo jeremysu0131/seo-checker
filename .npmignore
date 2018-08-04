@@ -1,4 +1,10 @@
 .nyc_output/
+.vscode/
 coverage/
 node_modules/
-.idea/
+src/
+test/
+util/
+.babelrc
+.eslintrc.js
+.travis.yml
