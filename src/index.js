@@ -1,8 +1,6 @@
-'use strict';
+const cheerio = require('cheerio');
 
-var cheerio = require('cheerio');
-
-var fs = require('fs');
+const fs = require('fs');
 
 module.exports = {
   /**
@@ -10,9 +8,7 @@ module.exports = {
    *
    * @returns {string} data - File Content
    */
-  readFile: function readFile(path) {
-    return fs.readFileSync(path, 'utf8');
-  },
+  readFile: path => fs.readFileSync(path, 'utf8'),
 
   /**
    * Detect <img> tag without alt attribute
@@ -21,13 +17,13 @@ module.exports = {
    * @param {string} data - Html text
    * @returns {string} Check result
    */
-  detectImage: function detectImage(data) {
-    var $ = cheerio.load(data);
-    var i = 0;
-    $('img').each(function (index, el) {
+  detectImage: (data) => {
+    const $ = cheerio.load(data);
+    let i = 0;
+    $('img').each((index, el) => {
       if (!el.attribs.alt) i += 1;
     });
-    return 'There are ' + i + ' <img> tag without alt attribute.';
+    return `There are ${i} <img> tag without alt attribute.`;
   },
 
   /**
@@ -37,13 +33,13 @@ module.exports = {
    * @param {string} data - Html text
    * @returns {string} Check result
    */
-  detectLink: function detectLink(data) {
-    var $ = cheerio.load(data);
-    var i = 0;
-    $('a').each(function (index, el) {
+  detectLink: (data) => {
+    const $ = cheerio.load(data);
+    let i = 0;
+    $('a').each((index, el) => {
       if (!el.attribs.rel) i += 1;
     });
-    return 'There are ' + i + ' <a> tag without rel attribute.';
+    return `There are ${i} <a> tag without rel attribute.`;
   },
 
   /**
@@ -51,13 +47,13 @@ module.exports = {
    * @param {string} data - Html text
    * @returns {string} Check result
    */
-  detectHead: function detectHead(data) {
-    var $ = cheerio.load(data);
-    var hasTitle = false;
-    var hasDescription = false;
-    var hasKeywords = false;
+  detectHead: (data) => {
+    const $ = cheerio.load(data);
+    let hasTitle = false;
+    let hasDescription = false;
+    let hasKeywords = false;
     if ($('head title').html()) hasTitle = true;
-    $('head meta').each(function (index, el) {
+    $('head meta').each((index, el) => {
       if (el.attribs.name === 'description') hasDescription = true;
       if (el.attribs.name === 'keywords') hasKeywords = true;
     });
@@ -66,7 +62,7 @@ module.exports = {
       return 'Header setup ok.';
     }
 
-    return 'This HTML without' + (hasTitle ? '' : ' <title>') + (hasDescription ? '' : ' <meta name="descriptions" />') + (hasKeywords ? '' : ' <meta name="keywords" />') + ' tag.';
+    return `This HTML without${hasTitle ? '' : ' <title>'}${hasDescription ? '' : ' <meta name="descriptions" />'}${hasKeywords ? '' : ' <meta name="keywords" />'} tag.`;
   },
 
   /**
@@ -75,16 +71,14 @@ module.exports = {
    * @param {number} [limit=15] - Limit of <strong>
    * @returns {string} Check result
    */
-  detectStrong: function detectStrong(data) {
-    var limit = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 15;
-
-    var $ = cheerio.load(data);
-    var i = $('strong').length;
+  detectStrong: (data, limit = 15) => {
+    const $ = cheerio.load(data);
+    const i = $('strong').length;
 
     if (i <= limit) {
-      return '<strong> tag isn\'t more than ' + limit + '. Total: ' + i + '.';
+      return `<strong> tag isn't more than ${limit}. Total: ${i}.`;
     }
-    return '<strong> tag is more than ' + limit + '. Total: ' + i + '.';
+    return `<strong> tag is more than ${limit}. Total: ${i}.`;
   },
 
   /**
@@ -92,12 +86,12 @@ module.exports = {
    * @param {string} data - Html text
    * @returns {string} Check result
    */
-  detectH1: function detectH1(data) {
-    var $ = cheerio.load(data);
+  detectH1: (data) => {
+    const $ = cheerio.load(data);
 
     if ($('h1').length <= 1) {
       return '<h1> tag isn\'t more than one.';
     }
     return '<h1> tag is more than one.';
-  }
+  },
 };
