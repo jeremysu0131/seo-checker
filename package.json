@@ -6,6 +6,7 @@
   "scripts": {
     "build": "yarn run lint && babel ./src -d ./lib",
     "lint": "eslint ./src ./test",
+    "dev": "babel ./src -d ./lib && node ./index.js",
     "test": "nyc mocha --require babel-core/register",
     "prepublishOnly": "yarn run build"
   },

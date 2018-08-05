@@ -1,3 +1,6 @@
+# Lib only generate for npm package
+lib
+
 # Logs
 logs
 *.log
