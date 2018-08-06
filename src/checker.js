@@ -1,3 +1,8 @@
+/**
+ *
+ * @param {string} str - Html content
+ * @param {string} regex - Regex
+ */
 const countRegexResult = (str, regex) => ((str || '').match(regex) || []).length;
 
 /**
@@ -26,20 +31,20 @@ export const meta = (data, str) => countRegexResult(data, new RegExp(
 /**
  * Count how many <title> tag
  * @param {string} data - Html text
- * @returns {string} Check result
+ * @returns {number} Check result
  */
 export const title = data => countRegexResult(data, /<title(.*?)>(.*?)<\/title>/g);
 
 /**
  * Count how many <strong> tag
  * @param {string} data - Html text
- * @returns {string} Check result
+ * @returns {number} Check result
  */
 export const strong = data => countRegexResult(data, /<strong(.*?)>(.*?)<\/strong>/g);
 
 /**
  * Count how many <h1> tag
  * @param {string} data - Html text
- * @returns {string} Check result
+ * @returns {number} Check result
  */
 export const h1 = data => countRegexResult(data, /<h1(.*?)>(.*?)<\/h1>/g);
