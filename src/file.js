@@ -30,7 +30,7 @@ class Checker {
             count,
             limit,
           } = this.results.strong;
-          if (this.results.strong.count <= limit) {
+          if (count <= limit) {
             return `<strong> tag isn't more than ${limit}. Total: ${count}.`;
           }
           return `<strong> tag is more than ${limit}. Total: ${count}.`;
@@ -74,9 +74,13 @@ class Checker {
     return this;
   }
 
-  checkStrong(limit) {
+  /**
+   * Detect <strong> tag if exceed limit
+   * @param {number} [limit=15] - Limit of <strong>
+   */
+  checkStrong(limit = 15) {
     this.results.strong.limit = limit;
-    this.results.h1.count = check.h1(this.data);
+    this.results.strong.count = check.strong(this.data);
     return this;
   }
 

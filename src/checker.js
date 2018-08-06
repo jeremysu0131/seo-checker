@@ -47,14 +47,7 @@ export const meta = (data, str) => countRegexResult(data, new RegExp(`<meta\\sna
  * @param {number} [limit=15] - Limit of <strong>
  * @returns {string} Check result
  */
-export const strong = (data, limit = 15) => {
-  countRegexResult(data, /<\s*strong[^>]*>(.*?)<\s*\/s*strong>/g);
-
-  if (i <= limit) {
-    return `<strong> tag isn't more than ${limit}. Total: ${i}.`;
-  }
-  return `<strong> tag is more than ${limit}. Total: ${i}.`;
-};
+export const strong = data => countRegexResult(data, /<\s*strong[^>]*>(.*?)<\s*\/s*strong>/g);
 
 /**
  * Detect <h1> tag if more than one
