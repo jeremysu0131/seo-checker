@@ -1,5 +1,5 @@
 # Lib only generate for npm package
-lib
+lib/
 
 # Logs
 logs

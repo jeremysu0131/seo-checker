@@ -171,4 +171,5 @@ class Checker {
   }
 }
 
-export default Checker;
+// Use this to let IDE read
+module.exports = Checker;
