@@ -64,8 +64,7 @@ export const head = (data) => {
  * @returns {string} Check result
  */
 export const strong = (data, limit = 15) => {
-  const $ = cheerio.load(data);
-  const i = $('strong').length;
+  countRegexResult(data, /<\s*strong[^>]*>(.*?)<\s*\/s*strong>/g);
 
   if (i <= limit) {
     return `<strong> tag isn't more than ${limit}. Total: ${i}.`;

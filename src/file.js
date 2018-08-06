@@ -22,7 +22,27 @@ class Checker {
           return '<h1> tag is more than one.';
         },
       },
+      strong: {
+        count: 0,
+        limit: 0,
+        message: () => {
+          const {
+            count,
+            limit,
+          } = this.results.strong;
+          if (this.results.strong.count <= limit) {
+            return `<strong> tag isn't more than ${limit}. Total: ${count}.`;
+          }
+          return `<strong> tag is more than ${limit}. Total: ${count}.`;
+        },
+      },
     };
+  }
+
+  checkStrong(limit) {
+    this.results.strong.limit = limit;
+    this.results.h1.count = check.h1(this.data);
+    return this;
   }
 
   checkH1() {
@@ -30,8 +50,9 @@ class Checker {
     return this;
   }
 
+
   printResult() {
-    console.log(this.results.h1.message());
+    console.log(this.results);
   }
 
   /**
