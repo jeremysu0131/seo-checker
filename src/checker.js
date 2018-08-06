@@ -3,21 +3,21 @@ const countRegexResult = (str, regex) => ((str || '').match(regex) || []).length
 /**
  * Detect <img> link without alt attribute
  * @param {string} data - Html text
- * @returns {string} Check result
+ * @returns {number} Check result
  */
 export const image = data => countRegexResult(data, /<img(?!(.*?)alt="(.*?)")(.*?)>/g);
 
 /**
  * Detect <a> link without rel attribute
  * @param {string} data - Html text
- * @returns {string} Check result
+ * @returns {number} Check result
  */
 export const link = data => countRegexResult(data, /<a(?!(.*?)rel="(.*?)")(.*?)>(.*?)<\/a>/g);
 
 /**
  * Detect <title> and <meta> tag
  * @param {string} data - Html text
- * @returns {string} Check result
+ * @returns {number} Check result
  */
 export const meta = (data, str) => countRegexResult(data, new RegExp(
   `<meta(.*?)name="${str}"(.*?)>`, 'g',
