@@ -36,7 +36,42 @@ class Checker {
           return `<strong> tag is more than ${limit}. Total: ${count}.`;
         },
       },
+      meta: {
+        have: [],
+        nothave: [],
+        message: () => {
+          const {
+            have,
+            nothave,
+          } = this.results.meta;
+          let s = 'Meta have ';
+          have.forEach((tag) => {
+            s += `"${tag}" `;
+          });
+
+          if (nothave.length > 0) {
+            s += 'but not have ';
+            nothave.forEach((tag) => {
+              s += `"${tag}" `;
+            });
+          }
+          return s;
+        },
+      },
     };
+  }
+
+  /**
+   * Check meta name
+   * @param {strig} metaName
+   */
+  checkMeta(metaName) {
+    if (check.meta(this.data, metaName)) {
+      this.results.meta.have.push(metaName);
+    } else {
+      this.results.meta.nothave.push(metaName);
+    }
+    return this;
   }
 
   checkStrong(limit) {
@@ -45,6 +80,9 @@ class Checker {
     return this;
   }
 
+  /**
+   * Check H1 Tag
+   */
   checkH1() {
     this.results.h1.count = check.h1(this.data);
     return this;

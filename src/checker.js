@@ -39,23 +39,7 @@ export const link = (data) => {
  * @param {string} data - Html text
  * @returns {string} Check result
  */
-export const head = (data) => {
-  const $ = cheerio.load(data);
-  let hasTitle = false;
-  let hasDescription = false;
-  let hasKeywords = false;
-  if ($('head title').html()) hasTitle = true;
-  $('head meta').each((index, el) => {
-    if (el.attribs.name === 'description') hasDescription = true;
-    if (el.attribs.name === 'keywords') hasKeywords = true;
-  });
-
-  if (hasTitle && hasDescription && hasKeywords) {
-    return 'Header setup ok.';
-  }
-
-  return `This HTML without${hasTitle ? '' : ' <title>'}${hasDescription ? '' : ' <meta name="descriptions" />'}${hasKeywords ? '' : ' <meta name="keywords" />'} tag.`;
-};
+export const meta = (data, str) => countRegexResult(data, new RegExp(`<meta\\sname="${str}"[^>]*>`, 'g'));
 
 /**
  * Detect <strong> tag if exceed limit
