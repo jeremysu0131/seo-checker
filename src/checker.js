@@ -25,7 +25,7 @@ export const detectImage = (data) => {
  * @param {string} data - Html text
  * @returns {string} Check result
  */
-export const detectLink = (data) => {
+export const link = (data) => {
   const $ = cheerio.load(data);
   let i = 0;
   $('a').each((index, el) => {
@@ -39,7 +39,7 @@ export const detectLink = (data) => {
  * @param {string} data - Html text
  * @returns {string} Check result
  */
-export const detectHead = (data) => {
+export const head = (data) => {
   const $ = cheerio.load(data);
   let hasTitle = false;
   let hasDescription = false;
@@ -63,7 +63,7 @@ export const detectHead = (data) => {
  * @param {number} [limit=15] - Limit of <strong>
  * @returns {string} Check result
  */
-export const detectStrong = (data, limit = 15) => {
+export const strong = (data, limit = 15) => {
   const $ = cheerio.load(data);
   const i = $('strong').length;
 
@@ -78,11 +78,4 @@ export const detectStrong = (data, limit = 15) => {
  * @param {string} data - Html text
  * @returns {string} Check result
  */
-export const detectH1 = (data) => {
-  const re = /<\s*h1[^>]*>(.*?)<\s*\/s*h1>/g;
-
-  if (countRegexResult(data, re) <= 1) {
-    return '<h1> tag isn\'t more than one.';
-  }
-  return '<h1> tag is more than one.';
-};
+export const h1 = data => countRegexResult(data, /<\s*h1[^>]*>(.*?)<\s*\/s*h1>/g);

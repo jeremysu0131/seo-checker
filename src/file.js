@@ -1,5 +1,5 @@
 import fs from 'fs';
-import * as checker from './checker';
+import * as check from './checker';
 
 /**
  * Class representing a checker
@@ -12,10 +12,26 @@ class Checker {
   constructor(path) {
     this.path = path;
     this.data = '';
+    this.results = {
+      h1: {
+        count: 0,
+        message: () => {
+          if (this.results.h1.count <= 1) {
+            return '<h1> tag isn\'t more than one.';
+          }
+          return '<h1> tag is more than one.';
+        },
+      },
+    };
   }
 
   checkH1() {
-    console.log(checker.detectH1(this.data));
+    this.results.h1.count = check.h1(this.data);
+    return this;
+  }
+
+  printResult() {
+    console.log(this.results.h1.message());
   }
 
   /**
