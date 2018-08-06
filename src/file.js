@@ -7,7 +7,7 @@ import * as check from './checker';
 class Checker {
   /**
    * Create a checker
-   * @param {string} path
+   * @param {string} path - File location
    */
   constructor(path) {
     this.path = path;
@@ -58,12 +58,48 @@ class Checker {
           return s;
         },
       },
+      title: {
+        has: false,
+        message: () => (this.results.title.has ? 'Has Title' : 'No title'),
+      },
+      link: {
+        count: 0,
+        message: () => `There are ${this.results.link.count} <a> tag without rel attribute.`,
+      },
+      image: {
+        count: 0,
+        message: () => `There are ${this.results.image.count} <img> tag without alt attribute.`,
+      },
     };
   }
 
   /**
+   * Check <img> tag without alt attribute
+   */
+  checkImage() {
+    this.results.image.count = check.image(this.data);
+    return this;
+  }
+
+  /**
+   * Check <a> tag without rel attribute
+   */
+  checkLink() {
+    this.results.link.count = check.link(this.data);
+    return this;
+  }
+
+  /**
+   * Check if has <title> tag
+   */
+  checkTitle() {
+    this.results.title.has = check.strong(this.data) > 0;
+    return this;
+  }
+
+  /**
    * Check meta name
-   * @param {strig} metaName
+   * @param {strig} metaName - Meta name value
    */
   checkMeta(metaName) {
     if (check.meta(this.data, metaName)) {
@@ -75,7 +111,7 @@ class Checker {
   }
 
   /**
-   * Detect <strong> tag if exceed limit
+   * Check if <strong> tag exceed limit
    * @param {number} [limit=15] - Limit of <strong>
    */
   checkStrong(limit = 15) {
@@ -85,7 +121,7 @@ class Checker {
   }
 
   /**
-   * Check H1 Tag
+   * Check if more than one <h1> Tag
    */
   checkH1() {
     this.results.h1.count = check.h1(this.data);
@@ -94,7 +130,20 @@ class Checker {
 
 
   printResult() {
-    console.log(this.results);
+    const {
+      h1,
+      link,
+      image,
+      title,
+      strong,
+      meta,
+    } = this.results;
+    console.log(h1.message());
+    console.log(link.message());
+    console.log(image.message());
+    console.log(title.message());
+    console.log(meta.message());
+    console.log(strong.message());
   }
 
   /**
@@ -115,10 +164,10 @@ class Checker {
     const rs = fs.createReadStream(this.path);
     rs.setEncoding('utf8');
 
-    rs.on('data', (chunk) => {
-      console.log(checker.detectHead(chunk));
-      console.log(checker.detectH1(chunk));
-    });
+    // rs.on('data', (chunk) => {
+    //   console.log(checker.detectHead(chunk));
+    //   console.log(checker.detectH1(chunk));
+    // });
   }
 }
 

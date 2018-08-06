@@ -1,57 +1,45 @@
-const cheerio = require('cheerio');
-
 const countRegexResult = (str, regex) => ((str || '').match(regex) || []).length;
 
 /**
- * Detect <img> tag without alt attribute
- * TODO:
- *  - if the tag has alt attribute but value is null
+ * Detect <img> link without alt attribute
  * @param {string} data - Html text
  * @returns {string} Check result
  */
-export const detectImage = (data) => {
-  const $ = cheerio.load(data);
-  let i = 0;
-  $('img').each((index, el) => {
-    if (!el.attribs.alt) i += 1;
-  });
-  return `There are ${i} <img> tag without alt attribute.`;
-};
+export const image = data => countRegexResult(data, /<img(?!(.*?)alt="(.*?)")(.*?)>/g);
 
 /**
  * Detect <a> link without rel attribute
- * TODO:
- *  - if the link has rel attribute but value is null
  * @param {string} data - Html text
  * @returns {string} Check result
  */
-export const link = (data) => {
-  const $ = cheerio.load(data);
-  let i = 0;
-  $('a').each((index, el) => {
-    if (!el.attribs.rel) i += 1;
-  });
-  return `There are ${i} <a> tag without rel attribute.`;
-};
+export const link = data => countRegexResult(data, /<a(?!(.*?)rel="(.*?)")(.*?)>(.*?)<\/a>/g);
 
 /**
  * Detect <title> and <meta> tag
  * @param {string} data - Html text
  * @returns {string} Check result
  */
-export const meta = (data, str) => countRegexResult(data, new RegExp(`<meta\\sname="${str}"[^>]*>`, 'g'));
+export const meta = (data, str) => countRegexResult(data, new RegExp(
+  `<meta(.*?)name="${str}"(.*?)>`, 'g',
+));
 
 /**
- * Detect <strong> tag if exceed limit
- * @param {string} data - Html text
- * @param {number} [limit=15] - Limit of <strong>
- * @returns {string} Check result
- */
-export const strong = data => countRegexResult(data, /<\s*strong[^>]*>(.*?)<\s*\/s*strong>/g);
-
-/**
- * Detect <h1> tag if more than one
+ * Count how many <title> tag
  * @param {string} data - Html text
  * @returns {string} Check result
  */
-export const h1 = data => countRegexResult(data, /<\s*h1[^>]*>(.*?)<\s*\/s*h1>/g);
+export const title = data => countRegexResult(data, /<title(.*?)>(.*?)<\/title>/g);
+
+/**
+ * Count how many <strong> tag
+ * @param {string} data - Html text
+ * @returns {string} Check result
+ */
+export const strong = data => countRegexResult(data, /<strong(.*?)>(.*?)<\/strong>/g);
+
+/**
+ * Count how many <h1> tag
+ * @param {string} data - Html text
+ * @returns {string} Check result
+ */
+export const h1 = data => countRegexResult(data, /<h1(.*?)>(.*?)<\/h1>/g);
