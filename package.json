@@ -4,7 +4,7 @@
   "description": "This is used to check your SEO file.",
   "main": "./index/index.js",
   "scripts": {
-    "build": "yarn run lint && babel ./src -d ./lib",
+    "build": "babel ./src -d ./lib && yarn run lint",
     "lint": "eslint ./src ./test",
     "dev": "babel ./src -d ./lib && node ./lib/index.js",
     "test": "nyc mocha --require babel-core/register",
