@@ -1,12 +1,12 @@
 import fs from 'fs';
-import * as detector from './detector';
+import * as checker from './checker';
 
 /**
- * Class representing a Detector
+ * Class representing a checker
  */
-class Detector {
+class Checker {
   /**
-   * Create a detector
+   * Create a checker
    * @param {string} path
    */
   constructor(path) {
@@ -15,7 +15,7 @@ class Detector {
   }
 
   checkH1() {
-    console.log(detector.detectH1(this.data));
+    console.log(checker.detectH1(this.data));
   }
 
   /**
@@ -37,10 +37,10 @@ class Detector {
     rs.setEncoding('utf8');
 
     rs.on('data', (chunk) => {
-      console.log(detector.detectHead(chunk));
-      console.log(detector.detectH1(chunk));
+      console.log(checker.detectHead(chunk));
+      console.log(checker.detectH1(chunk));
     });
   }
 }
 
-export default Detector;
+export default Checker;

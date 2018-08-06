@@ -1,8 +1,7 @@
 const {
   expect,
 } = require('chai');
-const checker = require('../lib/index');
-
+const checker = require('../lib/checker');
 
 describe('Detect Image Arrtibute', () => {
   it('Should return 2', () => {
