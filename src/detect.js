@@ -149,8 +149,8 @@ class Detect {
     });
   }
 
-  writeResult() {
-    const ws = fs.createWriteStream('./result.txt', {
+  writeResult(path) {
+    const ws = fs.createWriteStream(path, {
       encoding: 'utf8',
     });
     ws.once('open', () => {

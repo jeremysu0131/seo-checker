@@ -12,7 +12,7 @@ const file = new Read('./test/testfiles/test2.html');
 file.readFile()
   .checkImage()
   .checkH1()
-  .writeResult();
+  .writeResult('./result.txt');
 
 // file.readFileStream()
 //   .pipe(Checker.detectH1Stream)
