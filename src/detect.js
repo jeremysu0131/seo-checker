@@ -3,7 +3,7 @@ import * as check from './checker';
 /**
  * Class representing a checker
  */
-class Checker {
+class Detect {
   /**
    * Create a checker
    * @param {string} path - File location
@@ -146,5 +146,4 @@ class Checker {
   }
 }
 
-// Use this to let IDE read
-module.exports = Checker;
+export default Detect;

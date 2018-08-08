@@ -1,7 +1,9 @@
 import fs from 'fs';
+import Detect from './detect';
 
-class ReadFile {
+class ReadFile extends Detect {
   constructor(path) {
+    super();
     this.data = '';
     this.path = path;
   }
