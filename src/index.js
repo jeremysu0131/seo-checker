@@ -8,11 +8,13 @@ export {
 
 const file = new Read('./test/testfiles/test2.html');
 
+
 file.readFile()
   .checkImage()
-  .printResult();
+  .checkH1()
+  .writeResult();
 
-file.readFileStream()
-  .pipe(Checker.detectH1Stream)
-  .pipe(Checker.detectStrongStream)
-  .pipe(Checker.writeReaultStream);
+// file.readFileStream()
+//   .pipe(Checker.detectH1Stream)
+//   .pipe(Checker.detectStrongStream)
+//   .pipe(Checker.writeReaultStream);

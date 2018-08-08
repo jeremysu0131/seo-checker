@@ -1,5 +1,5 @@
+import fs from 'fs';
 import * as check from './checker';
-
 /**
  * Class representing a checker
  */
@@ -13,6 +13,7 @@ class Detect {
     this.data = '';
     this.results = {
       h1: {
+        called: false,
         count: 0,
         message: () => {
           if (this.results.h1.count <= 1) {
@@ -22,6 +23,7 @@ class Detect {
         },
       },
       strong: {
+        called: false,
         count: 0,
         limit: 0,
         message: () => {
@@ -36,6 +38,7 @@ class Detect {
         },
       },
       meta: {
+        called: false,
         have: [],
         nothave: [],
         message: () => {
@@ -58,14 +61,17 @@ class Detect {
         },
       },
       title: {
+        called: false,
         has: false,
         message: () => (this.results.title.has ? 'Has Title' : 'No title'),
       },
       link: {
+        called: false,
         count: 0,
         message: () => `There are ${this.results.link.count} <a> tag without rel attribute.`,
       },
       image: {
+        called: false,
         count: 0,
         message: () => `There are ${this.results.image.count} <img> tag without alt attribute.`,
       },
@@ -76,6 +82,7 @@ class Detect {
    * Check <img> tag without alt attribute
    */
   checkImage() {
+    this.results.image.called = true;
     this.results.image.count = check.image(this.data);
     return this;
   }
@@ -84,6 +91,7 @@ class Detect {
    * Check <a> tag without rel attribute
    */
   checkLink() {
+    this.results.link.called = true;
     this.results.link.count = check.link(this.data);
     return this;
   }
@@ -92,6 +100,7 @@ class Detect {
    * Check if has <title> tag
    */
   checkTitle() {
+    this.results.title.called = true;
     this.results.title.has = check.strong(this.data) > 0;
     return this;
   }
@@ -101,6 +110,7 @@ class Detect {
    * @param {strig} metaName - Meta name value
    */
   checkMeta(metaName) {
+    this.results.meta.called = true;
     if (check.meta(this.data, metaName)) {
       this.results.meta.have.push(metaName);
     } else {
@@ -114,6 +124,7 @@ class Detect {
    * @param {number} [limit=15] - Limit of <strong>
    */
   checkStrong(limit = 15) {
+    this.results.strong.called = true;
     this.results.strong.limit = limit;
     this.results.strong.count = check.strong(this.data);
     return this;
@@ -123,26 +134,34 @@ class Detect {
    * Check if more than one <h1> Tag
    */
   checkH1() {
+    this.results.h1.called = true;
     this.results.h1.count = check.h1(this.data);
     return this;
   }
 
 
   printResult() {
-    const {
-      h1,
-      link,
-      image,
-      title,
-      strong,
-      meta,
-    } = this.results;
-    console.log(h1.message());
-    console.log(link.message());
-    console.log(image.message());
-    console.log(title.message());
-    console.log(meta.message());
-    console.log(strong.message());
+    Object.keys(this.results).forEach((key) => {
+      const result = this.results[key];
+      if (result.called) {
+        console.log(result.message());
+      }
+    });
+  }
+
+  writeResult() {
+    const ws = fs.createWriteStream('./result.txt', {
+      encoding: 'utf8',
+    });
+    ws.once('open', () => {
+      Object.keys(this.results).forEach((key) => {
+        const result = this.results[key];
+        if (result.called) {
+          ws.write(`${result.message()}\n`);
+        }
+      });
+      ws.end();
+    });
   }
 }
 
