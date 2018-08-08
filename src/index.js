@@ -1,14 +1,15 @@
-module.exports = require('./file.js');
+import Read from './file';
+import * as Checker from './detectStream';
+// For npm
+export {
+  Read,
+  Checker,
+};
 
-// const detector = new Detector('./test/testfiles/test2.html');
+// const file = new Read('./test/testfiles/test2.html');
 
-// detector.readFile()
-//   .checkMeta('keywords')
-//   .checkMeta('description')
-//   .checkMeta('descriptions')
-//   .checkImage()
-//   .checkTitle()
-//   .checkLink()
-//   .checkH1()
-//   .checkStrong()
-//   .printResult();
+// file.readFileStream()
+
+//   .pipe(Checker.detectH1Stream)
+//   .pipe(Checker.detectStrongStream)
+//   .pipe(Checker.writeReaultStream);
