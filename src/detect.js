@@ -53,13 +53,13 @@ class Detect {
    * Check meta name
    * @param {strig} metaName - Meta name value
    */
-  checkMeta(metaName) {
+  checkMeta(...options) {
     this.results.meta.called = true;
-    if (check.meta(this.data, metaName)) {
-      this.results.meta.have.push(metaName);
-    } else {
-      this.results.meta.nothave.push(metaName);
-    }
+    options.forEach((o) => {
+      const checkResult = check.meta(this.data, o);
+      if (checkResult > 0) this.results.meta.have.push(o);
+      else this.results.meta.nothave.push(o);
+    });
     return this;
   }
 
