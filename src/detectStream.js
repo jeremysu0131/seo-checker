@@ -1,81 +1,13 @@
-// module.exports = require('./file.js');
 import {
   Transform,
   Writable,
 } from 'stream';
 import * as checker from './checker';
+import resultsModel from './models/results';
 
 class DetectStream {
   constructor() {
-    this.results = {
-      h1: {
-        called: false,
-        count: 0,
-        message: () => {
-          if (this.results.h1.count > 1) {
-            return `<h1> tag is more than one. Total: ${this.results.h1.count}`;
-          }
-          if (this.results.h1.count === 1) {
-            return 'This HTML has one <h1> tag.';
-          }
-          return 'This HTML without <h1> tag.';
-        },
-      },
-      strong: {
-        called: false,
-        count: 0,
-        limit: 0,
-        message: () => {
-          const {
-            count,
-            limit,
-          } = this.results.strong;
-          if (count <= limit) {
-            return `<strong> tag isn't more than ${limit}. Total: ${count}.`;
-          }
-          return `<strong> tag is more than ${limit}. Total: ${count}.`;
-        },
-      },
-      meta: {
-        called: false,
-        have: [],
-        nothave: [],
-        message: () => {
-          const {
-            have,
-            nothave,
-          } = this.results.meta;
-          let s = 'Meta have ';
-          have.forEach((tag) => {
-            s += `"${tag}" `;
-          });
-
-          if (nothave.length > 0) {
-            s += 'but not have ';
-            nothave.forEach((tag) => {
-              s += `"${tag}" `;
-            });
-          }
-          return s;
-        },
-      },
-      title: {
-        called: false,
-        count: false,
-        message: () => (this.results.title.count
-          ? 'The HTML with <title> tag.' : 'The HTML without <title> tag.'),
-      },
-      link: {
-        called: false,
-        count: 0,
-        message: () => `There are ${this.results.link.count} <a> tag without rel attribute.`,
-      },
-      image: {
-        called: false,
-        count: 0,
-        message: () => `There are ${this.results.image.count} <img> tag without alt attribute.`,
-      },
-    };
+    this.results = resultsModel;
   }
 
   detectStrong(limit = 15) {

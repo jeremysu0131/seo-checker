@@ -1,76 +1,14 @@
 import fs from 'fs';
 import * as check from './checker';
+import resultsModel from './models/results';
+
 /**
  * Class representing a checker
  */
 class Detect {
   constructor() {
     this.data = '';
-    this.results = {
-      h1: {
-        called: false,
-        count: 0,
-        message: () => {
-          if (this.results.h1.count <= 1) {
-            return '<h1> tag isn\'t more than one.';
-          }
-          return '<h1> tag is more than one.';
-        },
-      },
-      strong: {
-        called: false,
-        count: 0,
-        limit: 0,
-        message: () => {
-          const {
-            count,
-            limit,
-          } = this.results.strong;
-          if (count <= limit) {
-            return `<strong> tag isn't more than ${limit}. Total: ${count}.`;
-          }
-          return `<strong> tag is more than ${limit}. Total: ${count}.`;
-        },
-      },
-      meta: {
-        called: false,
-        have: [],
-        nothave: [],
-        message: () => {
-          const {
-            have,
-            nothave,
-          } = this.results.meta;
-          let s = 'Meta have ';
-          have.forEach((tag) => {
-            s += `"${tag}" `;
-          });
-
-          if (nothave.length > 0) {
-            s += 'but not have ';
-            nothave.forEach((tag) => {
-              s += `"${tag}" `;
-            });
-          }
-          return s;
-        },
-      },
-      title: {
-        called: false,
-        has: false,
-        message: () => (this.results.title.has ? 'Has Title' : 'No title'),
-      },
-      link: {
-        called: false,
-        count: 0,
-        message: () => `There are ${this.results.link.count} <a> tag without rel attribute.`,
-      },
-      image: {
-        called: false,
-        count: 0,
-        message: () => `There are ${this.results.image.count} <img> tag without alt attribute.`,
-      },
-    };
+    this.results = resultsModel;
   }
 
   /**
