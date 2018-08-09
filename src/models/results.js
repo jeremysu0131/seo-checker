@@ -53,8 +53,7 @@ const results = {
   title: {
     called: false,
     count: false,
-    message: () => (results.title.count ?
-      'The HTML with <title> tag.' : 'The HTML without <title> tag.'),
+    message: () => (results.title.count ? 'The HTML with <title> tag.' : 'The HTML without <title> tag.'),
   },
   link: {
     called: false,
