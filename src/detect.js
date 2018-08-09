@@ -4,12 +4,7 @@ import * as check from './checker';
  * Class representing a checker
  */
 class Detect {
-  /**
-   * Create a checker
-   * @param {string} path - File location
-   */
-  constructor(path) {
-    this.path = path;
+  constructor() {
     this.data = '';
     this.results = {
       h1: {
@@ -76,6 +71,17 @@ class Detect {
         message: () => `There are ${this.results.image.count} <img> tag without alt attribute.`,
       },
     };
+  }
+
+  /**
+   * @param {string} path - File location
+   *
+   * @returns {this} File Content
+   */
+  readFile(path) {
+    this.data = fs.readFileSync(path, 'utf8');
+    this.results = this.results;
+    return this;
   }
 
   /**
@@ -165,4 +171,4 @@ class Detect {
   }
 }
 
-export default Detect;
+export default new Detect();

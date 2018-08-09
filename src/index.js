@@ -1,24 +1,24 @@
-import Read from './file';
-import Checker from './detectStream';
+import fs from 'fs';
+import Check from './detect';
+import CheckStream from './detectStream';
 // For npm
 export {
-  Read,
-  Checker,
+  Check,
+  CheckStream,
 };
 
-const file = new Read('./test/testfiles/test2.html');
+Check.readFile('./test/testfiles/test2.html')
+  .checkImage()
+  .checkH1()
+  .printResult();
 
 
-// file.readFile()
-//   .checkImage()
-//   .checkH1()
-//   .writeResult('./result.txt');
-
-file.readFileStream()
-  .pipe(Checker.detectImage())
-  .pipe(Checker.detectLink())
-  .pipe(Checker.detectTitle())
-  .pipe(Checker.detectMeta('keywords', 'descriptions'))
-  .pipe(Checker.detectStrong())
-  .pipe(Checker.detectH1())
-  .pipe(Checker.printResults());
+const rs = fs.createReadStream('./test/testfiles/test2.html');
+rs
+  .pipe(CheckStream.detectImage())
+  .pipe(CheckStream.detectLink())
+  .pipe(CheckStream.detectTitle())
+  .pipe(CheckStream.detectMeta('keywords', 'descriptions'))
+  .pipe(CheckStream.detectStrong())
+  .pipe(CheckStream.detectH1())
+  .pipe(CheckStream.printResults());
