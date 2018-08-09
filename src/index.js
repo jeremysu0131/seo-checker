@@ -1,5 +1,5 @@
 import Read from './file';
-import * as Checker from './detectStream';
+import Checker from './detectStream';
 // For npm
 export {
   Read,
@@ -9,12 +9,16 @@ export {
 const file = new Read('./test/testfiles/test2.html');
 
 
-file.readFile()
-  .checkImage()
-  .checkH1()
-  .writeResult('./result.txt');
+// file.readFile()
+//   .checkImage()
+//   .checkH1()
+//   .writeResult('./result.txt');
 
-// file.readFileStream()
-//   .pipe(Checker.detectH1Stream)
-//   .pipe(Checker.detectStrongStream)
-//   .pipe(Checker.writeReaultStream);
+file.readFileStream()
+  .pipe(Checker.detectImage())
+  .pipe(Checker.detectLink())
+  .pipe(Checker.detectTitle())
+  .pipe(Checker.detectMeta('keywords', 'descriptions'))
+  .pipe(Checker.detectStrong())
+  .pipe(Checker.detectH1())
+  .pipe(Checker.printResults());
