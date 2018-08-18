@@ -20,21 +20,30 @@ $ npm install @jeremysu0131/seo-checker
 Performing a read HTML file sample
 
 ```js
-import Check from './detect';
+import { Check } from '@jeremysu0131/seo-checker';
 
-Check.readFile('./test/testfiles/test2.html')
+Check.readFile('./test.html')
   .checkImage()
   .checkH1()
+  .checkMeta('keywords', 'descriptions')
   .printResult();
+
+// Output:
+// <h1> tag is more than one. Total: 2
+// Meta have "keywords" but not have "descriptions"
+// There are 2 <img> tag without alt attribute.
 ```
 
 Performing a read HTML file as Stream sample
 
 ```js
 import fs from 'fs';
-import CheckStream from './detectStream';
+import { CheckStream } from '@jeremysu0131/seo-checker';
 
-const rs = fs.createReadStream('./test/testfiles/test2.html');
+// Create a read stream
+const rs = fs.createReadStream('./test.html');
+
+// Pipe the stream to every method
 rs.pipe(CheckStream.detectImage())
   .pipe(CheckStream.detectLink())
   .pipe(CheckStream.detectTitle())

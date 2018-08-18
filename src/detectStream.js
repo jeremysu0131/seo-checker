@@ -67,12 +67,14 @@ class DetectStream {
     });
   }
 
+  // TODO: Have bug
   detectMeta(...options) {
     this.results.meta.called = true;
     return new Transform({
       objectMode: true,
       transform: (chunk, _, next) => {
         options.forEach((o) => {
+          console.log(o);
           const checkResult = checker.meta(chunk.toString(), o);
           if (checkResult > 0) this.results.meta.have.push(o);
           else this.results.meta.nothave.push(o);
