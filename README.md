@@ -50,5 +50,5 @@ rs.pipe(CheckStream.detectImage())
   .pipe(CheckStream.detectMeta('keywords', 'descriptions'))
   .pipe(CheckStream.detectStrong())
   .pipe(CheckStream.detectH1())
-  .pipe(CheckStream.printResults());
+  .pipe(CheckStream.writeResultsToFile('./test.txt')); // Save results to file
 ```

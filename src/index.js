@@ -18,4 +18,3 @@ rs.pipe(CheckStream.detectImage())
   .pipe(CheckStream.detectStrong())
   .pipe(CheckStream.detectH1())
   .pipe(CheckStream.writeResultsToFile('./test.txt'));
-// .pipe(CheckStream.printResults());

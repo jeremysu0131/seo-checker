@@ -11,6 +11,10 @@ class DetectStream {
     this.results = resultsModel;
   }
 
+  /**
+   *
+   * @param {number} limit - Set the limit of strong tag
+   */
   detectStrong(limit = 15) {
     this.results.strong.called = true;
     return new Transform({
@@ -67,6 +71,10 @@ class DetectStream {
     });
   }
 
+  /**
+   *
+   * @param  {string[]} options - The meta name needs to be check
+   */
   detectMeta(...options) {
     this.results.meta.called = true;
     return new Transform({
@@ -104,6 +112,10 @@ class DetectStream {
     });
   }
 
+  /**
+   * Write results to file
+   * @param {string} path - The path where to save results to file
+   */
   writeResultsToFile(path) {
     if (!path) {
       throw new Error("You didn't choose where the result to save.");
