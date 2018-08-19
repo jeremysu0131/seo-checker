@@ -73,12 +73,16 @@ class DetectStream {
     return new Transform({
       objectMode: true,
       transform: (chunk, _, next) => {
-        options.forEach((o) => {
-          console.log(o);
-          const checkResult = checker.meta(chunk.toString(), o);
-          if (checkResult > 0) this.results.meta.have.push(o);
-          else this.results.meta.nothave.push(o);
-        });
+        // Check if it still needs to check
+        if (!this.results.meta.finish) {
+          // Check if leave <head> tag
+          if (chunk.indexOf('</head>')) this.results.meta.finish = true;
+          options.forEach((o) => {
+            const checkResult = checker.meta(chunk.toString(), o);
+            if (checkResult > 0) this.results.meta.have.push(o);
+            else this.results.meta.nothave.push(o);
+          });
+        }
         next(null, chunk);
       },
     });

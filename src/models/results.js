@@ -31,18 +31,22 @@ const results = {
     called: false,
     have: [],
     nothave: [],
+    finish: false,
     message: () => {
       const {
         have,
         nothave,
       } = results.meta;
-      let s = 'Meta have ';
-      have.forEach((tag) => {
-        s += `"${tag}" `;
-      });
+      let s = '';
+      if (have.length > 0) {
+        s += 'Meta have ';
+        have.forEach((tag) => {
+          s += `"${tag}" `;
+        });
+      }
 
       if (nothave.length > 0) {
-        s += 'but not have ';
+        s += 'Not have ';
         nothave.forEach((tag) => {
           s += `"${tag}" `;
         });
