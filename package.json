@@ -1,6 +1,6 @@
 {
   "name": "@jeremysu0131/seo-checker",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "This is used to check your SEO file.",
   "main": "./lib/index.js",
   "scripts": {
