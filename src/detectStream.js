@@ -67,7 +67,6 @@ class DetectStream {
     });
   }
 
-  // TODO: Have bug
   detectMeta(...options) {
     this.results.meta.called = true;
     return new Transform({
@@ -105,9 +104,31 @@ class DetectStream {
     });
   }
 
-  /* eslint class-methods-use-this: ["error", { "exceptMethods": ["writeResults"] }] */
-  writeResults(path) {
-    return fs.createWriteStream(path);
+  writeResultsToFile(path) {
+    if (!path) {
+      throw new Error("You didn't choose where the result to save.");
+    }
+    return new Writable({
+      objectMode: true,
+      write: (data, _, done) => {
+        done();
+      },
+      final: () => {
+        const ws = fs.createWriteStream(path, {
+          encoding: 'utf8',
+        });
+
+        ws.once('open', () => {
+          Object.keys(this.results).forEach((key) => {
+            const result = this.results[key];
+            if (result.called) {
+              ws.write(`${result.message()}\n`);
+            }
+          });
+          ws.end();
+        });
+      },
+    });
   }
 }
 export default new DetectStream();
