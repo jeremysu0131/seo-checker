@@ -12,8 +12,28 @@
 Using npm:
 
 ```bash
-$ npm install @jeremysu0131/seo-checker
+npm install @jeremysu0131/seo-checker
 ```
+
+## Input Methods
+
+1. `readFile`: Read a HTML file
+2. Use `fs.createReadStream` to create a read stream, then use `pipe` to pipe chunk to the method you specified.
+
+## Check Methods
+
+1. `checkImage`: Detect if any `img` tag without alt attribute
+2. `checkLink`: Detect if any `a` tag without rel attribute
+3. `checkTitle`: Detect if header doesn’t have `title` tag
+4. `checkMeta`: Detect if header doesn’t have the tag you specified
+5. `checkStrong`: Detect if there’re more than 15 `strong` tag in HTML (15 is a default value and you can configurable by yourself)
+6. `checkH1`: Detect if a HTML have more than one `h1` tag
+
+## Output Methods
+
+1. `printResultsToConsole`: Print check results to console
+2. `writeResultsToFile`: Write results to file
+3. **Custom**: You can write your custom results style by pipe the chunk to your custom method
 
 ## Example
 
