@@ -13,8 +13,6 @@ class Detect {
 
   /**
    * @param {string} path - File location
-   *
-   * @returns {this} File Content
    */
   readFile(path) {
     this.data = fs.readFileSync(path, 'utf8');
@@ -84,7 +82,7 @@ class Detect {
   }
 
 
-  printResult() {
+  printResultsToConsole() {
     Object.keys(this.results).forEach((key) => {
       const result = this.results[key];
       if (result.called) {
@@ -93,7 +91,12 @@ class Detect {
     });
   }
 
-  writeResult(path) {
+  /**
+   * Write results to file
+   *
+   * @param {string} path - The file where to save
+   */
+  writeResultsToFile(path) {
     const ws = fs.createWriteStream(path, {
       encoding: 'utf8',
     });

@@ -26,7 +26,7 @@ Check.readFile('./test.html')
   .checkImage()
   .checkH1()
   .checkMeta('keywords', 'descriptions')
-  .printResult();
+  .printResultsToConsole();
 
 // Output:
 // <h1> tag is more than one. Total: 2
